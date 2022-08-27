@@ -1,0 +1,64 @@
+#Prerequisite
+
+AWS Acccount.
+Create an ubuntu EC2 Instnace.
+#Create IAM Role With Required Policies.
+    VPCFullAccess
+    EC2FullAcces
+    S3FullAccess ..etc
+    Administrator Access
+#Attach IAM Role to EC2 Instance.
+
+
+CREATE an admin user to manage our EKS Cluster
+sudo adduser eksadmin
+sudo echo "eksadmin  ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/eksadmin
+sudo su - eksadmin
+
+    # Install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64-2.0.30.zip" -o "awscliv2.zip"
+sudo apt install unzip -y
+unzip awscliv2.zip
+sudo ./aws/install
+
+  # Install Terraform  
+ # git clone https://github.com/sonitamuluh/eks-terraform-setup
+# cd eks-terraform-setup  
+
+   # Update Your Key Name in variables.tf file before executing terraform script.
+    Update Region in provider.tf file to the region that your key is in.
+    
+    #Infrastructure As A Code using Terraform
+        Create Infrastructure(Amazon EKS, IAM Roles, AutoScalingGroups, Launch Configuration, LoadBalancer, 
+        NodeGroups,VPC,Subnets,Route Tables,Security Groups, NACLs, ..etc) As A Code Using Terraform Scripts
+    
+    .#Initialize terraform and verify .tf files:
+# Initialise to install plugins
+    terraform init 
+# Validate terraform scripts
+    terraform validate 
+# Plan terraform scripts which will list resources which is going  be created.
+    terraform plan 
+# Apply to create resources
+    terraform apply --auto-approve
+    
+  # Create/Update Kube Config File
+aws eks --region us-east-2 update-kubeconfig --name terraform-eks-demo
+    
+  # Install Kubectl
+curl -LO "https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl"
+chmod +x ./kubectl
+sudo mv ./kubectl /usr/local/bin/kubectl
+
+
+   .#When you are done and what to delete the cluster :
+terrafrom destroy --auto-approve
+
+
+
+
+
+   
+
+   
+   
