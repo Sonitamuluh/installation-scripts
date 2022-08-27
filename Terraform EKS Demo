@@ -63,7 +63,7 @@ kubectl get nodes
 
 
    .#When you are done and what to delete the cluster :
-terrafrom destroy --auto-approve
+terraform destroy --auto-approve
 
 
 
